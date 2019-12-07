@@ -4,6 +4,6 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <h1>Crud Proyecto Lab.Seg </h1>
+        <h1>Hola Mundo</h1>
     </body>
 </html>

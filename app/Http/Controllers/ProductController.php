@@ -14,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = \Criss\Product::orderBy('id', 'DESC')->paginate();
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -35,7 +36,15 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        //
+        $product = new \Criss\Product;
+
+        $product->name  = $request->name;
+        $product->short = $request->short;
+        $product->body  = $request->body;
+
+        $product->save();
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -46,7 +55,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-      //
+        $product = \Criss\Product::find($id);
+        
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -57,7 +68,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = \Criss\Product::find($id);
+        
+        return view('products.edit', compact('product'));
     }
 
     /**
@@ -69,7 +82,15 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        //
+        $product = \Criss\Product::find($id);
+
+        $product->name  = $request->name;
+        $product->short = $request->short;
+        $product->body  = $request->body;
+
+        $product->save();
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -80,6 +101,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = \Criss\Product::find($id);
+        $product->delete();
+        return back()->with('info', 'Fue eliminado exitosamente');
     }
 }
